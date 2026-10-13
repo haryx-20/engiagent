@@ -1,0 +1,164 @@
+[
+  {
+    "name": "create_plan",
+    "description": "Record a short numbered plan (2-6 steps) BEFORE doing multi-step work.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "steps"
+      ]
+    }
+  },
+  {
+    "name": "mark_step_done",
+    "description": "Mark a plan step (1-based index) as completed, with a one-line result.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer"
+        },
+        "result": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "index",
+        "result"
+      ]
+    }
+  },
+  {
+    "name": "calculator",
+    "description": "Evaluate a math expression. Supports + - * / ** %, sqrt, sin, cos, tan, log, exp, pi, e.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "expression": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "expression"
+      ]
+    }
+  },
+  {
+    "name": "unit_convert",
+    "description": "Convert between units: length, mass, force, pressure, energy, power, speed, temperature (C/F/K).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "from_unit": {
+          "type": "string"
+        },
+        "to_unit": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "from_unit",
+        "to_unit"
+      ]
+    }
+  },
+  {
+    "name": "material_lookup",
+    "description": "Look up density, Young's modulus, yield and ultimate strength of common engineering materials.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "e.g. 'aluminium', '4140', 'titanium'"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "beam_analysis",
+    "description": "Max bending moment, max deflection and max bending stress of a rectangular-section beam. SI inputs; load is N (point cases) or N/m (UDL cases).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "case": {
+          "type": "string",
+          "enum": [
+            "simply_supported_center_point",
+            "cantilever_end_point",
+            "simply_supported_udl",
+            "cantilever_udl"
+          ]
+        },
+        "length_m": {
+          "type": "number"
+        },
+        "load": {
+          "type": "number"
+        },
+        "E_GPa": {
+          "type": "number"
+        },
+        "width_mm": {
+          "type": "number"
+        },
+        "height_mm": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "case",
+        "length_m",
+        "load",
+        "E_GPa",
+        "width_mm",
+        "height_mm"
+      ]
+    }
+  },
+  {
+    "name": "save_note",
+    "description": "Save a fact or result to long-term memory so it can be recalled in later sessions.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ]
+    }
+  },
+  {
+    "name": "recall_notes",
+    "description": "Search long-term memory notes. Empty query returns everything.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        }
+      }
+    }
+  }
+]
